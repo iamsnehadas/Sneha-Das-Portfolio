@@ -388,6 +388,7 @@ a:focus, .hamburger:focus {
     border: 0;
     border-bottom: 2px solid #030a17;
     background-color: transparent;
+    font-size: 16px;
 }
 .form-section textarea {
     width: 40vw;
@@ -396,6 +397,7 @@ a:focus, .hamburger:focus {
     border: 0;
     border-bottom: 2px solid #030a17;
     background-color: transparent;
+    font-size: 16px;
 }
 .form-section ::placeholder {
     font-size: 18px;
@@ -591,5 +593,11 @@ footer {
         justify-content: center;
         align-items: center;
         margin: 20px 0;
+    }
+    .form-section input{
+        width: 80vw;
+    }
+    .form-section textarea {
+        width: 80vw;
     }
 }
