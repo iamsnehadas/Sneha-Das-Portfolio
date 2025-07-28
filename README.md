@@ -25,7 +25,7 @@ This portfolio was built with a focus on core, modern web technologies.
     *   CSS3 
     *   JavaScript 
 
-*   **Backend (for the contact form) (Ongoing currently):**
+*   **Backend (for the contact form):**
     *   Node.js
     *   Express.js
     *   Nodemailer
