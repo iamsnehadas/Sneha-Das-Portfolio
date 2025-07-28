@@ -53,23 +53,100 @@ tsParticles.load("tsparticles", {
   detectRetina: true,
 });
 
-document.getElementById('contact-form').addEventListener('submit', function(event) {
-  event.preventDefault(); 
+const contactForm = document.getElementById('contact-form');
+const submitButton = contactForm.querySelector('button[type="submit"]'); 
 
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const message = document.getElementById('message').value;
+contactForm.addEventListener('submit', async function(event) { 
+    event.preventDefault();
 
-  if (name === '' || email === '' || message === '') {
-    alert('Please fill in all fields.');
-    return;
-  }
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      alert('Please enter a valid email address.');
-      return;
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const messageInput = document.getElementById('message');
+
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const message = messageInput.value.trim();
+
+    // Clear previous error states
+    nameInput.classList.remove('error');
+    emailInput.classList.remove('error');
+    messageInput.classList.remove('error');
+    const existingErrorMessage = contactForm.querySelector('.form-error-message');
+    if (existingErrorMessage) {
+        existingErrorMessage.remove();
     }
-    console.log('Form submitted:', { name, email, message });
-    alert('Thank you for your message!');
-    this.reset();
+
+    // --- Frontend Validation (without alerts) ---
+    let hasError = false;
+    if (name === '') {
+        nameInput.classList.add('error');
+        hasError = true;
+    }
+    if (email === '') {
+        emailInput.classList.add('error');
+        hasError = true;
+    } else {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            emailInput.classList.add('error');
+            hasError = true;
+        }
+    }
+    if (message === '') {
+        messageInput.classList.add('error');
+        hasError = true;
+    }
+
+    if (hasError) {
+        const errorMessageDiv = document.createElement('div');
+        errorMessageDiv.classList.add('form-error-message');
+        errorMessageDiv.textContent = 'Please correct the highlighted fields.';
+        contactForm.insertBefore(errorMessageDiv, submitButton); 
+        return; // Stop execution if validation fails
+    }
+    //-----End of frontend validation-----
+
+    const originalButtonText = submitButton.textContent;
+    submitButton.textContent = 'Sending...';
+    submitButton.disabled = true; // Disable to prevent multiple clicks
+
+    const backendUrl = 'https://portfolio-backend-5sl3.onrender.com/send-email';
+
+    try { 
+        const response = await fetch(backendUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, email, message }),
+        });
+
+        const data = await response.text(); 
+
+        if (!response.ok) { 
+            throw new Error(`Server responded with status: ${response.status}. Message: ${data}`);
+        }
+
+        // Success feedback
+        submitButton.textContent = 'Sent!';
+        contactForm.reset(); // Clear the form
+        console.log('Message sent successfully:', data);
+
+        // Reset button after 1 second
+        setTimeout(() => {
+            submitButton.textContent = originalButtonText;
+            submitButton.disabled = false;
+        }, 1000); // "Sent!" for 1 second
+
+    } catch (error) {
+        // Error feedback
+        submitButton.textContent = 'Error!';
+        console.error('Error sending message:', error);
+        
+        // Reset button after 1 second
+        setTimeout(() => {
+            submitButton.textContent = originalButtonText;
+            submitButton.disabled = false;
+        }, 1000); 
+    }
 });
