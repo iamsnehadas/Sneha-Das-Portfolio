@@ -32,7 +32,7 @@ This portfolio was built with a focus on core, modern web technologies.
 
 *   **Tools & Deployment:**
     *   Git & GitHub for version control
-    *   Netlify for hosting
+    *   Netlify for hosting (Backend is hosted on Render)
 
 ## Running Locally
 
