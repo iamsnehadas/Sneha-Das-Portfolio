@@ -389,6 +389,7 @@ a:focus, .hamburger:focus {
     border-bottom: 2px solid #030a17;
     background-color: transparent;
     font-size: 16px;
+    font-family: Poppins;
 }
 .form-section textarea {
     width: 40vw;
@@ -398,9 +399,11 @@ a:focus, .hamburger:focus {
     border-bottom: 2px solid #030a17;
     background-color: transparent;
     font-size: 16px;
+    font-family: Poppins;
 }
 .form-section ::placeholder {
     font-size: 18px;
+    font-family: Poppins;
 }
 .form-submit {
     margin-bottom: 80px;
@@ -601,3 +604,4 @@ footer {
         width: 80vw;
     }
 }
+
