@@ -198,14 +198,18 @@ a:focus, .hamburger:focus {
     margin: 0;
 }
 .tech-stack-name, .link-name {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 20px;
     background-color: #ffffff;
     justify-content: center;
     margin-top: 20px;
     margin-bottom: 20px;
 }
 .tech-stack-name p, .link-name a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     box-sizing: border-box;
     padding: 10px;
     box-shadow: 0 0 2px 0 #030a17;
@@ -389,7 +393,6 @@ a:focus, .hamburger:focus {
     border-bottom: 2px solid #030a17;
     background-color: transparent;
     font-size: 16px;
-    font-family: Poppins;
 }
 .form-section textarea {
     width: 40vw;
@@ -399,11 +402,9 @@ a:focus, .hamburger:focus {
     border-bottom: 2px solid #030a17;
     background-color: transparent;
     font-size: 16px;
-    font-family: Poppins;
 }
 .form-section ::placeholder {
     font-size: 18px;
-    font-family: Poppins;
 }
 .form-submit {
     margin-bottom: 80px;
@@ -604,4 +605,3 @@ footer {
         width: 80vw;
     }
 }
-
